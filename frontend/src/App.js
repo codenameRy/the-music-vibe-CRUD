@@ -6,10 +6,23 @@ import SignUp from './components/auth/SignUp';
 import LogIn from './components/auth/LogIn';
 import Profile from './components/profile/Profile';
 import actions from './services/index';
-import axios from 'axios'
+import axios from 'axios';
+// import genius from 'genius-lyrics'
+import { getLyrics } from 'genius-lyrics-api';
 
 let apiURL = "https://cors-anywhere.herokuapp.com/https://api.genius.com/oauth/"
-let endPoint = "authorize?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&scope=REQUESTED_SCOPE&state=SOME_STATE_VALUE&response_type=code"
+let endPoint = "authorize?client_id=FLndxYeQOewRT7RdIFNbQ3vsStTL-69cqWs2lBrgeoOUyOPrBT6lqkVbY6n4GS8Z&redirect_uri=http://localhost:3000/&response_type=code"
+
+const options = {
+  apiKey: 'HfpseRNO8FkATyb95RjYibhpafpw_3SRZNbmUISokvdI8WndZmRpyAoefErtB2PX', // genius developer access token
+  title: 'Blinding Lights',
+  artist: 'The Weeknd',
+  optimizeQuery: true
+};
+
+getLyrics(options).then(lyrics => console.log(lyrics));
+
+// console.log(genius)
 
 
 class App extends Component {
