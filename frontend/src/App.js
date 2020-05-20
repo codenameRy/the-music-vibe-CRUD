@@ -5,24 +5,10 @@ import NotFound from './components/404/NotFound.js';
 import SignUp from './components/auth/SignUp';
 import LogIn from './components/auth/LogIn';
 import Profile from './components/profile/Profile';
+import SearchBar from './components/search/SearchBar'
 import actions from './services/index';
 import axios from 'axios';
-// import genius from 'genius-lyrics'
-import { getLyrics } from 'genius-lyrics-api';
 
-let apiURL = "https://cors-anywhere.herokuapp.com/https://api.genius.com/oauth/"
-let endPoint = "authorize?client_id=FLndxYeQOewRT7RdIFNbQ3vsStTL-69cqWs2lBrgeoOUyOPrBT6lqkVbY6n4GS8Z&redirect_uri=http://localhost:3000/&response_type=code"
-
-const options = {
-  apiKey: 'HfpseRNO8FkATyb95RjYibhpafpw_3SRZNbmUISokvdI8WndZmRpyAoefErtB2PX', // genius developer access token
-  title: 'Blinding Lights',
-  artist: 'The Weeknd',
-  optimizeQuery: true
-};
-
-getLyrics(options).then(lyrics => console.log(lyrics));
-
-// console.log(genius)
 
 
 class App extends Component {
@@ -32,18 +18,14 @@ class App extends Component {
   }
   
   async componentDidMount() {
+    //
     let user = await actions.isLoggedIn()
     this.setState({...user.data})
     console.log('coolest ')
     
-    //Genius
-    let res = await axios.get(apiURL+endPoint)
-    .then(res=> {
-      console.log(res)  
-      this.setState({
-        genius: res.data
-      })
-    })
+    //Genius API
+    // let lyrics = await actions.getArtist("weeknd","blinding lights")
+    // console.log(lyrics)
   }
 
   setUser = (user) => this.setState(user)
@@ -60,7 +42,7 @@ class App extends Component {
       {this.state.email}
       <nav>
         <NavLink to="/">Home |</NavLink>
-  
+
         {this.state.email ? 
           <Fragment>
            <NavLink onClick={this.logOut} to='/'>Log Out |</NavLink> 
@@ -72,7 +54,7 @@ class App extends Component {
            <NavLink to="/log-in">Log In |</NavLink>
            </Fragment>
           }
-        
+          <SearchBar/>
       </nav>
       <Switch>
         <Route exact path="/" render={(props) => <Home {...props} />} />

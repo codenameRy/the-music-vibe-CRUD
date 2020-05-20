@@ -21,6 +21,9 @@ const actions = {
   logOut: async () => {
     return await service.get('/logout')
   }
+  // getArtist: async (artistname, title) => {
+  //   return await service.get(`/search/${artistname}/${title}`)
+  // }
 };
 
 export default actions;
