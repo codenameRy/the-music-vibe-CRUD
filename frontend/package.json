@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "genius-lyrics": "^3.0.0",
     "genius-lyrics-api": "^2.0.3",
     "react": "^16.13.1",

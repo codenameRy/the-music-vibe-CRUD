@@ -1,9 +1,12 @@
 /* eslint-disable no-restricted-globals */
 import React from 'react';
 import axios from 'axios';
-import PageNavigation from './PageNavigation'
-import Loader from '../search/loader.gif'
+import PageNavigation from './PageNavigation';
+import Loader from '../search/loader.gif';
 import '../../styles/SearchBar.css';
+import actions from '../../services/index'
+
+require('dotenv').config()
 
 class Search extends React.Component {
 
@@ -22,7 +25,6 @@ class Search extends React.Component {
 
 		this.cancel = '';
 	}
-
 
 	/**
 	 * Get the Total Pages count.
@@ -47,11 +49,19 @@ class Search extends React.Component {
 	 */
 	fetchSearchResults = ( updatedPageNo = '', query ) => {
 		const pageNumber = updatedPageNo ? `&page=${updatedPageNo}` : '';
+		// const searchUrl = `https://pixabay.com/api/?key=12413278-79b713c7e196c7a3defb5330e&q=${query}${pageNumber}`;
 		const searchUrl = `https://pixabay.com/api/?key=12413278-79b713c7e196c7a3defb5330e&q=${query}${pageNumber}`;
 
+		console.log(searchUrl)
 		if( this.cancel ) {
 			this.cancel.cancel();
 		}
+/*
+.then(songs => {
+            console.log(songs)  
+            this.setState({
+              nbaNews: songs.data
+*/
 
 		this.cancel = axios.CancelToken.source();
 
@@ -60,6 +70,7 @@ class Search extends React.Component {
 		} )
 			.then( res => {
 				const total = res.data.total;
+				console.log(res.data)
 				const totalPagesCount = this.getPageCount( total, 20 );
 				const resultNotFoundMsg = ! res.data.hits.length
 										? 'There are no more search results. Please try a new search'
@@ -143,7 +154,7 @@ class Search extends React.Component {
 		return (
 			<div className="container">
 			{/*	Heading*/}
-			<h2 className="heading">Live Search: React Application</h2>
+			<h2 className="heading">Music Search </h2>
 			{/* Search Input*/}
 			<label className="search-label" htmlFor="search-input">
 				<input
