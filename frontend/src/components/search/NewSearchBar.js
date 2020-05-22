@@ -17,18 +17,30 @@ class NewSearchBar extends Component {
     })
   };
 
+
+
   displaySearchResults = () => {
     return this.state.searchResults.map((eachSong) => {
       return <div key={eachSong.result.id}>
       <h2>{eachSong.result.full_title}</h2>
+      <button onClick={() => this.getLyricsAPI(eachSong.result.title)}>
       <img
             // style={{ width: "50px" }}
             src={eachSong.result.song_art_image_thumbnail_url}
             alt={eachSong.result.song_art_image_thumbnail_url}
           />
+      </button>
       </div>;
     });
   };
+
+  getLyricsAPI = async (song) => {
+    let res = await actions.getLyrics(song)
+    console.log(res)
+    this.setState({
+      lyrics: res.data
+    })
+  }
 
   submitButton = async (e) => {
       e.preventDefault()

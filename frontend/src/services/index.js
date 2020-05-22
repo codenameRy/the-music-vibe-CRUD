@@ -24,11 +24,12 @@ const actions = {
   //Sending Genius API Search Results for songs and artists to CLIENT
    getArtist: async (artistsandsongs) => {
     return await service.get(`/search/${artistsandsongs}`)
-  }
+  },
   
-  // getArtist: async (artistname, title) => {
-  //   return await service.get(`/search/${artistname}/${title}`)
-  // }
+  //Sending lyrics info from NPM module to Client
+  getLyrics: async (song) => {
+    return await service.get(`/searchNPM/${song}`)
+  }
 };
 
 export default actions;

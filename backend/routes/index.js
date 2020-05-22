@@ -29,27 +29,22 @@ router.get('/search/:artistsandsongs/', (req, res, next) => {
   .then(response => res.status(200).json(response.data))
   .catch(err => {console.log(err); next(err)})
 })
-// const Genius = new (g.Client)("HfpseRNO8FkATyb95RjYibhpafpw_3SRZNbmUISokvdI8WndZmRpyAoefErtB2PX");
 
-// Genius.artists.get("653414")
-// .then(artist => {
-//     console.log(artist);
-//     // res.json({artist});
-// })
-// // .catch(err => console.error(err));
-// })
-
-//Retrieve Artist - Song Information (Genius Lyrics Params - Zyrouge)
-// const Genius = new (g.Client)("HfpseRNO8FkATyb95RjYibhpafpw_3SRZNbmUISokvdI8WndZmRpyAoefErtB2PX");
-
-// Genius.artists.get("653414")
-// .then(artist => {
-//     artist.songs()
-//     .then(songs => {
-//         console.log(songs);
-//     })
-// })
-// .catch(err => console.error(err));
+//NPM Module for lyrics
+router.get('/searchNPM/:lyrics/', (req, res, next) => {
+  const Genius = new (g.Client)("HfpseRNO8FkATyb95RjYibhpafpw_3SRZNbmUISokvdI8WndZmRpyAoefErtB2PX");
+  console.log("backend", req.params.lyrics)
+  Genius.tracks.search(req.params.lyrics)
+  .then(results => {
+    const song = results[0];
+    song.lyrics()
+    .then(lyrics => {
+        console.log(lyrics);
+        res.json (lyrics)
+    })
+})
+.catch(err => console.error(err));
+})
 
 
 module.exports = router;

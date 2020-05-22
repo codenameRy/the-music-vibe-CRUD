@@ -5,8 +5,9 @@ import NotFound from './components/404/NotFound.js';
 import SignUp from './components/auth/SignUp';
 import LogIn from './components/auth/LogIn';
 import Profile from './components/profile/Profile';
-import SearchBar from './components/search/SearchBar';
+// import SearchBar from './components/search/SearchBar';
 import NewSearchBar from './components/search/NewSearchBar'
+import SongLyrics from './components/search/SongLyrics'
 import actions from './services/index';
 import axios from 'axios';
 
@@ -67,7 +68,7 @@ class App extends Component {
         <Route exact path="/sign-up" render={(props)=><SignUp {...props} setUser={this.setUser} />} />
         <Route exact path="/log-in" render={(props) => <LogIn {...props} setUser={this.setUser}/>} />
         <Route exact path="/profile" render={(props) => <Profile {...props} user={this.state}/>} />
-        <Route exact path="/searchbar" render={(props) => <SearchBar {...props} />} />
+        <Route exact path="/searchbar/:trackname" render={(props) => <SongLyrics {...props} />} />
         
         <Route component={NotFound} />
       </Switch>
